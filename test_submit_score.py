@@ -8,6 +8,7 @@ import uuid
 
 playername = "SGLに来てね!!!"
 score = "1010000"
+max_kps = "1"
 SITE_URL = "https://trill-skill-checker.vercel.app"
 
 def load_rpc_settings() -> tuple[str, str]:
@@ -131,8 +132,15 @@ def main() -> None:
 
     entered_name = input(f"プレイヤー名 [{playername}]: ").strip()
     entered_score = input(f"スコア [{score}]: ").strip()
+    entered_max_kps = input(f"MAX KPS [{max_kps}]: ").strip()
     send_name = entered_name or playername
     send_score = int(entered_score or score)
+    try:
+        send_max_kps = float(entered_max_kps or max_kps)
+    except ValueError as error:
+        raise SystemExit("MAX KPSは数値で入力してください。") from error
+    if not 0 < send_max_kps <= 30:
+        raise SystemExit("最大コンボが1以上の場合、MAX KPSは0より大きく30以下にしてください。")
 
     # Default to a new test entry. Reuse a stable local ID only when requested.
     device_file = Path(__file__).with_name(".device_id")
@@ -154,7 +162,7 @@ def main() -> None:
                 "p_player_name": send_name,
                 "p_score": send_score,
                 "p_max_combo": note_count,
-                "p_max_kps": 0,
+                "p_max_kps": send_max_kps,
                 "p_perfect_count": note_count,
                 "p_good_count": 0,
                 "p_miss_count": 0,
