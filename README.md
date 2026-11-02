@@ -1,27 +1,34 @@
-# TAiKOTYPiNG ranking test sender
+# TAiKOTYPiNG ランキング送信テストツール
 
-A small Python script for sending test ranking records to the TAiKOTYPiNG site.
-It uses only the Python standard library and fetches the current song list and
-public RPC settings from the site when run.
+TAiKOTYPiNG のランキング送信をテストするためのPythonスクリプトです。Python標準ライブラリだけで動作し、実行時にサイトから曲一覧と公開RPC設定を取得します。
 
-## Requirements
+## 動作環境
 
-- Python 3.9 or newer
-- Internet access
+- Python 3.9以降
+- インターネット接続
 
-## Run
+## 使い方
+
+PowerShellでこのフォルダーを開き、次を実行します。
 
 ```powershell
 python -X utf8 test_submit_score.py
 ```
 
-Choose a song number from the terminal list, enter a player name and score, then
-review the payload. Enter `y` to send it. Choose `0` to send the same test result
-to every listed song. Each run uses a new device ID by default. Use
-`--reuse-device` to keep a local device ID and update the corresponding best
-record for each song.
+ターミナルに曲一覧が表示されます。曲番号を選び、プレイヤー名とスコアを入力してください。送信内容を確認し、`y` を入力すると送信します。`0` を選ぶと、一覧にあるすべての曲へ同じテスト結果を送信します。
 
-Use `--dry-run` to print the requests without sending them.
+通常は実行ごとに新しい端末IDを使い、新しいテスト記録を作ります。`--reuse-device` を付けるとローカルに保存した端末IDを再利用し、曲ごとの既存自己ベストを更新します。
 
-This tool writes records to the site's ranking database. Only use it against an
-environment you own or are authorized to test.
+```powershell
+python -X utf8 test_submit_score.py --reuse-device
+```
+
+`--dry-run` を付けると、送信せずに送信予定の内容だけを表示します。
+
+```powershell
+python -X utf8 test_submit_score.py --dry-run
+```
+
+## 注意
+
+このツールはランキングデータベースへ記録を送信します。自分が所有またはテストを許可されている環境だけで使用してください。公開ランキングや本番環境にはテストデータを送信しないでください。
