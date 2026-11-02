@@ -1,0 +1,30 @@
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Local credentials, identifiers, and environment files
+.env
+.env.*
+!.env.example
+.device_id
+
+# Captured browser traffic can contain identifiers and request data
+download.devtools
+*.har
+*.HAR
+
+# Logs and editor/OS files
+*.log
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
